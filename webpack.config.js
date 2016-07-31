@@ -36,6 +36,7 @@ var config = getConfig({
 });
 
 // ENV variables
+
 const dotEnvVars = dotenv.config();
 const environmentEnv = dotenv.config({
   path: join(root, 'config', `${NODE_ENV}.config.js`),
@@ -107,8 +108,6 @@ config.resolve.alias = {
   'styles': join(src, 'styles')
 }
 // end Roots
-
-// console.log(require('prettyjson').render(config));
 
 // Testing
 if (isTest) {
