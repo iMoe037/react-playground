@@ -7,17 +7,23 @@ import styles from './styles.module.css'
 
 describe('<App />', () => {
   let wrapper;
-  beforeEach(() => {
-    wrapper = shallow(<App />)
-  })
+  let history = {};
 
-  // it('has a single wrapper element', () => {
-  //   expect(wrapper.find(`.${styles.wrapper}`))
-  //     .to.have.length(1);
-  // });
+  beforeEach(() => {
+    wrapper =
+      shallow(<App history={history} />)
+  });
 
   it('has a Router Component', () => {
     expect(wrapper.find('Router'))
       .to.have.length(1);
   })
+
+  it('passes a history prop', () => {
+    const props = wrapper.find('Router').props();
+
+    expect(props.history)
+      .to.be.defined;
+  })
+
 });
