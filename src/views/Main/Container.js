@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { PropTypes as T } from 'react';
 import Map, { GoogleApiWrapper } from 'google-maps-react';
 import { searchNearby } from 'utils/googleApiHelpers';
-import { geoLocate } from 'utils/geoLocate';
-import Header from 'components/Header/Header'
 
+import { geoLocate } from 'utils/geoLocate';
+
+import Header from 'components/Header/Header';
+import Sidebar from 'components/Sidebar/Sidebar';
+
+import styles from './styles.module.css';
 
 export class Container extends React.Component {
   constructor(props) {
@@ -16,39 +20,45 @@ export class Container extends React.Component {
   }
 
   onReady(mapProps, map) {
-    const { google } = this.props;
-    const opts = {
-      location: map.center,
-      radius: '500',
-      types: ['cafe']
-    }
-
-    searchNearby(google, map, opts)
-      .then((results, pagination) => {
-        this.setState({
-          places: results,
-          pagination
-        })
+    searchNearby(
+      this.props.google,
+      map,
+      {
+        location: map.center,
+        radius: '500',
+        types: ['cafe']
+      }
+    ).then((results, pagination) => {
+      this.setState({
+        places: results,
+        pagination
       })
-      .catch((status, result) => {
-        console.log('Error Fetching Nearby ', status);
-      })
+    }).catch((status) => {
+      console.log('error fetching nearby', status)
+    })
   }
+
   render() {
-    return (
-      <div>
-        <Map
-          google={ this.props.google }
-          // onReady={this.onReady.bind(this)}
-          // visible={false}
-          />
 
-          {this.state.places.map(place => {
-            return (<div key={place.id}>{place.name}</div>)
-          })}
-      </div>
-    )
-  }
+  return (
+    <Map
+        google={this.props.google}
+        onReady={this.onReady.bind(this)}
+        visible={false}
+        className={styles.wrapper}>
+        <Header />
+
+        <Sidebar
+            title={'Restaurants'}
+            places={this.state.places} />
+
+        <div className={styles.content}>
+
+        </div>
+
+      </Map>
+  )
+}
 }
 
 export default GoogleApiWrapper({
