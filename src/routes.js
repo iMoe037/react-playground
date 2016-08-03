@@ -8,9 +8,11 @@ export const makeRoutes = () => {
 
   return (
     <Route path=''>
-      { main }
+      {main}
     </Route>
   )
 }
+
+
 
 export default makeRoutes
