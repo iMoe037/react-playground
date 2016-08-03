@@ -24,4 +24,14 @@ export class Sidebar extends React.Component {
   }
 }
 
+Sidebar.propTypes = {
+  places: T.array,
+  title: T.string,
+  onListItemClick: T.func
+}
+
+Sidebar.defaultProps = {
+  title: 'Restaurants'
+}
+
 export default Sidebar

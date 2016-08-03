@@ -11,13 +11,28 @@ export class Listing extends React.Component {
       {this.props.places.map(place => {
         return (
           <Item place={place}
-                  onClick={this.props.onClick}
-                  key={place.id} />
-          )
-        })}
+                onClick={this.props.onClick}
+                onHighlight={this.props.onHighlight}
+                offHighlight={this.props.offHighlight}
+                key={place.id} />
+        )
+      })}
       </div>
     )
   }
+}
+
+Listing.propTypes = {
+  places: T.array.isRequired,
+  onHighlight: T.func,
+  offHighlight: T.func,
+  onClick: T.func
+}
+
+Listing.defaultProps = {
+  onHighlight: () => {},
+  offHighlight: () => {},
+  onClick: () => {},
 }
 
 export default Listing

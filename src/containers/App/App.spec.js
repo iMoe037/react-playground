@@ -8,16 +8,15 @@ import styles from './styles.module.css'
 describe('<App />', () => {
   let wrapper;
   let history = {};
-
   beforeEach(() => {
     wrapper =
-      shallow(<App history={history} />)
-  });
+      shallow(<App history={history}/>)
+  })
 
-  it('has a Router Component', () => {
+  it('has a Router component', () => {
     expect(wrapper.find('Router'))
       .to.have.length(1);
-  })
+  });
 
   it('passes a history prop', () => {
     const props = wrapper.find('Router').props();
